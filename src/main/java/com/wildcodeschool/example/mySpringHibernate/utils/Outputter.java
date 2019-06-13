@@ -40,11 +40,11 @@ public class Outputter implements CommandLineRunner {
         charactersRepository.save(vegeta);
         LOG.info(vegeta + " a était sauvegardé");
 
-        // Lit les informations correspondant au second utilisateur
+        // Lit les informations correspondant au second personnage
         Charactersdbz tempChara = charactersRepository.findById(2L).get();
         LOG.info("******************");
-        LOG.info("Second user's firstName is " + tempChara.getName());
-        LOG.info("Second user's age is " + tempChara.getPower());
+        LOG.info("Le second perso enregistré est " + tempChara.getName());
+        LOG.info("Son KI s'éleve a " + tempChara.getPower());
 
         // Liste les persos enregistrés dans la BDD
         LOG.info("******************");
@@ -53,12 +53,19 @@ public class Outputter implements CommandLineRunner {
             LOG.info(myChara.toString());
         }
 
-        // Supprime le second utilisateur de la BDD
+        // Supprime le second perso de la BDD
         charactersRepository.deleteById(2L);
         LOG.info("******************");
         LOG.info(" perso sont dans la base ");
         for (Charactersdbz myChara : charactersRepository.findAll()) {
             LOG.info(myChara.toString());
         }
+
+        // MAJ du premier perso
+        Charactersdbz tempMajChara = charactersRepository.findById(1L).get();
+        tempMajChara.setPower(150000);
+        charactersRepository.save(tempMajChara);
+        LOG.info("******************");
+        LOG.info(tempMajChara + " a était mise a jour");
     }
 }
